@@ -1,0 +1,85 @@
+May-03 14:28:02.131 [main] DEBUG nextflow.cli.Launcher - $> nextflow RawDataQC.nf --Fastq ../Examples/RawData/Test.fastq --Output TestRun --Threads 2
+May-03 14:28:02.171 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 23.10.1
+May-03 14:28:02.181 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; embedded=false; plugins-dir=/home/matt_h/.nextflow/plugins; core-plugins: nf-amazon@2.1.4,nf-azure@1.3.3,nf-cloudcache@0.3.0,nf-codecommit@0.1.5,nf-console@1.0.6,nf-ga4gh@1.1.0,nf-google@1.8.3,nf-tower@1.6.3,nf-wave@1.0.1
+May-03 14:28:02.185 [main] INFO  o.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
+May-03 14:28:02.186 [main] INFO  o.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
+May-03 14:28:02.187 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.4.1 in 'deployment' mode
+May-03 14:28:02.191 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
+May-03 14:28:02.227 [main] DEBUG nextflow.cli.CmdRun - Applied DSL=2 by global default
+May-03 14:28:02.235 [main] INFO  nextflow.cli.CmdRun - Launching `RawDataQC.nf` [insane_bernard] DSL2 - revision: 5683cccd93
+May-03 14:28:02.236 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
+May-03 14:28:02.236 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins resolved requirement=[]
+May-03 14:28:02.240 [main] DEBUG n.secret.LocalSecretsProvider - Secrets store: /home/matt_h/.nextflow/secrets/store.json
+May-03 14:28:02.243 [main] DEBUG nextflow.secret.SecretsLoader - Discovered secrets providers: [nextflow.secret.LocalSecretsProvider@21fff664] - activable => nextflow.secret.LocalSecretsProvider@21fff664
+May-03 14:28:02.279 [main] DEBUG nextflow.Session - Session UUID: f46425d0-8b09-4186-843b-af4055c68ec7
+May-03 14:28:02.279 [main] DEBUG nextflow.Session - Run name: insane_bernard
+May-03 14:28:02.280 [main] DEBUG nextflow.Session - Executor pool size: 12
+May-03 14:28:02.284 [main] DEBUG nextflow.file.FilePorter - File porter settings maxRetries=3; maxTransfers=50; pollTimeout=null
+May-03 14:28:02.286 [main] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'FileTransfer' minSize=10; maxSize=36; workQueue=LinkedBlockingQueue[10000]; allowCoreThreadTimeout=false
+May-03 14:28:02.298 [main] DEBUG nextflow.cli.CmdRun - 
+  Version: 23.10.1 build 5891
+  Created: 12-01-2024 22:01 UTC (22:01 BST)
+  System: Linux 6.5.0-28-generic
+  Runtime: Groovy 3.0.19 on OpenJDK 64-Bit Server VM 17.0.10+7-Ubuntu-122.04.1
+  Encoding: UTF-8 (UTF-8)
+  Process: 124336@matt-h-Latitude-5330 [127.0.1.1]
+  CPUs: 12 - Mem: 31 GB (9.7 GB) - Swap: 1.9 GB (1.9 GB)
+May-03 14:28:02.308 [main] DEBUG nextflow.Session - Work-dir: /home/matt_h/Documents/Work/Github/Research/DenovoAssemblyTools/QualityControl/work [ext2/ext3]
+May-03 14:28:02.308 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /home/matt_h/Documents/Work/Github/Research/DenovoAssemblyTools/QualityControl/bin
+May-03 14:28:02.314 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
+May-03 14:28:02.319 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
+May-03 14:28:02.331 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
+May-03 14:28:02.336 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 13; maxThreads: 1000
+May-03 14:28:02.377 [main] DEBUG nextflow.Session - Session start
+May-03 14:28:02.714 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+May-03 14:28:02.767 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: null
+May-03 14:28:02.768 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'local'
+May-03 14:28:02.770 [main] DEBUG nextflow.executor.Executor - [warm up] executor > local
+May-03 14:28:02.773 [main] DEBUG n.processor.LocalPollingMonitor - Creating local task monitor for executor 'local' > cpus=12; memory=31 GB; capacity=12; pollInterval=100ms; dumpInterval=5m
+May-03 14:28:02.775 [main] DEBUG n.processor.TaskPollingMonitor - >>> barrier register (monitor: local)
+May-03 14:28:02.823 [main] DEBUG nextflow.Session - Workflow process names [dsl2]: Scrub
+May-03 14:28:02.823 [main] DEBUG nextflow.Session - Igniting dataflow network (1)
+May-03 14:28:02.823 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > Scrub
+May-03 14:28:02.824 [main] DEBUG nextflow.script.ScriptRunner - Parsed script files:
+  Script_204c988b99e9d365: /home/matt_h/Documents/Work/Github/Research/DenovoAssemblyTools/QualityControl/RawDataQC.nf
+May-03 14:28:02.824 [main] DEBUG nextflow.script.ScriptRunner - > Awaiting termination 
+May-03 14:28:02.824 [main] DEBUG nextflow.Session - Session await
+May-03 14:28:02.882 [Task submitter] DEBUG n.executor.local.LocalTaskHandler - Launch cmd line: /bin/bash -ue .command.run
+May-03 14:28:02.884 [Task submitter] INFO  nextflow.Session - [9b/6a781f] Submitted process > Scrub
+May-03 14:28:02.909 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[id: 1; name: Scrub; status: COMPLETED; exit: 1; error: -; workDir: /home/matt_h/Documents/Work/Github/Research/DenovoAssemblyTools/QualityControl/work/9b/6a781fa194c05f36c1468ab9f46f9d]
+May-03 14:28:02.912 [Task monitor] DEBUG nextflow.processor.TaskProcessor - Handling unexpected condition for
+  task: name=Scrub; work-dir=/home/matt_h/Documents/Work/Github/Research/DenovoAssemblyTools/QualityControl/work/9b/6a781fa194c05f36c1468ab9f46f9d
+  error [nextflow.exception.ProcessFailedException]: Process `Scrub` terminated with an error exit status (1)
+May-03 14:28:02.918 [Task monitor] ERROR nextflow.processor.TaskProcessor - Error executing process > 'Scrub'
+
+Caused by:
+  Process `Scrub` terminated with an error exit status (1)
+
+Command executed:
+
+  mkdir DataQC
+  
+  minimap2 -x map-ont                -t 2               ../Examples/RawData/Test.fastq               ../Examples/RawData/Test.fastq  > ./DataQC/TestRun.YCARD.paf ; 
+  
+  yacrd   -i ./DataQC/TestRun.YCARD.paf             -o ./DataQC/TestRun.KrakFilt.yacrd             -c 4 -n 0.4 scrubb             -i ../Examples/RawData/Test.fastq              -o ./DataQC/TestRun.Yacrd.fastq
+
+Command exit status:
+  1
+
+Command output:
+  (empty)
+
+Command error:
+  [ERROR] failed to open file '../Examples/RawData/Test.fastq': No such file or directory
+
+Work dir:
+  /home/matt_h/Documents/Work/Github/Research/DenovoAssemblyTools/QualityControl/work/9b/6a781fa194c05f36c1468ab9f46f9d
+
+Tip: you can replicate the issue by changing to the process work dir and entering the command `bash .command.run`
+May-03 14:28:02.921 [main] DEBUG nextflow.Session - Session await > all processes finished
+May-03 14:28:02.921 [Task monitor] DEBUG nextflow.Session - Session aborted -- Cause: Process `Scrub` terminated with an error exit status (1)
+May-03 14:28:02.931 [main] DEBUG nextflow.Session - Session await > all barriers passed
+May-03 14:28:02.931 [Task monitor] DEBUG n.processor.TaskPollingMonitor - <<< barrier arrives (monitor: local) - terminating tasks monitor poll loop
+May-03 14:28:02.934 [main] DEBUG n.trace.WorkflowStatsObserver - Workflow completed > WorkflowStats[succeededCount=0; failedCount=1; ignoredCount=0; cachedCount=0; pendingCount=0; submittedCount=0; runningCount=0; retriesCount=0; abortedCount=0; succeedDuration=0ms; failedDuration=15ms; cachedDuration=0ms;loadCpus=0; loadMemory=0; peakRunning=1; peakCpus=1; peakMemory=0; ]
+May-03 14:28:03.148 [main] DEBUG nextflow.cache.CacheDB - Closing CacheDB done
+May-03 14:28:03.167 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye

@@ -1,8 +1,14 @@
-
+#############
+# Stage One
+#############
 
 # 1) Create and activate conda environment from yml
 conda env create -f DeNovoAssembly.yml
 conda activate DeNovoAssembly
+
+#############
+# Stage Two
+#############
 
 #2) Download and install nextflow
 # Guide: https://www.nextflow.io/docs/latest/install.html 
@@ -20,7 +26,58 @@ chmod +x nextflow
 conda_dir=$(dirname $(dirname $(which conda)))
 mv nextflow $conda_dir/envs/DeNovoAssembly/bin/
 
-#3) Download and activate singularity containers from https://github.com/MatthewHiggins2017/SingularityCore/ 
+###############
+# Stage Three #
+###############
 
 
-#4) Download FCS-GX Scripts. 
+#3) Create and activate all singularity containers according to .def files outlined in ./Containers directory.
+
+cd ./Containers
+
+for file in *.def; do
+    if [ -f "$file" ]; then
+        echo "Processing $file"
+        singularity build --fakeroot "${file%.def}.sif" "$file"
+    fi
+done
+
+# Move all precursor files to given directory
+mkdir Precursors
+mv * ./Precursors
+mv ./Precursors/*.sif ./
+
+
+###############
+# Stage Four #
+###############
+# 4) Download FCS-GX Scripts
+
+# Download FCS-GX Singularity Image
+curl https://ftp.ncbi.nlm.nih.gov/genomes/TOOLS/FCS/releases/latest/fcs-gx.sif -Lo fcs-gx.sif
+export FCS_DEFAULT_IMAGE=fcs-gx.sif
+
+# Download FCS-GX script and add to bin! 
+curl -LO https://github.com/ncbi/fcs/raw/main/dist/fcs.py
+chmod +x fcs.py
+mv fcs.py $conda_dir/envs/DeNovoAssembly/bin/
+
+cd ../
+
+###############
+# Stage Five #
+###############
+
+# 5) Download necessary databases. 
+
+mkdir DB
+cd  ./DB
+
+# Make Directory for FCS-GX databse.
+mkdir GXDB
+
+curl -LO https://github.com/peak/s5cmd/releases/download/v2.0.0/s5cmd_2.0.0_Linux-64bit.tar.gz
+tar -xvf s5cmd_2.0.0_Linux-64bit.tar.gz
+
+LOCAL_DB="./GXDB/"
+./s5cmd  --no-sign-request cp  --part-size 50  --concurrency 50 s3://ncbi-fcs-gx/gxdb/latest/all.* $LOCAL_DB. 

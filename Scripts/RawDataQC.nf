@@ -2,7 +2,7 @@
 
 /*
 
-nextflow QualityControl/RawDataQC.nf --ID TestQC --Fastq ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.fastq --Threads 2 --KrakenReport ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.report --KrakenOutput ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.kraken --ExcludeTaxID 2 --Outdir ./TestRun
+nextflow QualityControl/RawDataQC.nf --ID Test --Fastq ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.fastq --Threads 2 --KrakenReport ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.report --KrakenOutput ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.kraken --ExcludeTaxID 2 --Outdir ./TestRun
 
 */
 
@@ -11,7 +11,7 @@ nextflow QualityControl/RawDataQC.nf --ID TestQC --Fastq ~/Documents/Work/Github
 params.ID = "Test"
 params.Fastq = "default"
 params.Threads = 2
-params.Outdir = "default"
+params.Outdir = "./TestRun"
 
 // Kraken Decontamination Parameters
 params.KrakenReport = "default"
@@ -51,7 +51,7 @@ process KrakenFilt {
     container '/home/matt_h/Downloads/KRAKENTOOLS.sif'
 
     // Defines where output files will be stored on process completion
-    publishDir "${params.Outdir}/DataQC/01_Decontamination"
+    publishDir "${params.Outdir}/01_DataQC/01_Decontamination"
 
     // Input variables required
     input:
@@ -122,6 +122,8 @@ process Scrub {
 
 
 process QualFilter {
+
+    container '/home/matt_h/Downloads/CHOPPER.sif'
 
     // Defines where output files will be stored on process completion
     publishDir "${params.Outdir}/DataQC/03_Filtered"

@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.poetry]
+name = "Denovo Assembly Pipeline"
+version = "0.0.1"
+description = "A package for de novo genome assembly"
+authors = ["Matt Higgins <matt.higgins@example.com>"]
+packages = [
+    { include = "Assembly", from = "src" }
+]
+
+[tool.poetry.scripts]
+runtest = "Assembly.Assembly:main"
+
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"

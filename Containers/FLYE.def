@@ -1,0 +1,15 @@
+Bootstrap: docker
+
+From: continuumio/miniconda3
+
+%files
+    FLYE.yml
+
+%post
+    /opt/conda/bin/conda env create -f FLYE.yml
+    echo ". /opt/conda/etc/profile.d/conda.sh" >> $SINGULARITY_ENVIRONMENT
+    echo "conda activate FLYE" >> $SINGULARITY_ENVIRONMENT
+    
+    
+%runscript
+    flye --help

@@ -2,10 +2,19 @@
 
 /*
 
-nextflow QualityControl/RawDataQC.nf --ID Test --Fastq ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.fastq --Threads 2 --KrakenReport ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.report --KrakenOutput ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.kraken --ExcludeTaxID 2 --Outdir ./TestRun
+
+################
+# Test Command #
+################
+
+nextflow ./NF/modules/RawDataQC.nf --ID Test --Fastq ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.fastq --Threads 2 --KrakenReport ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.report --KrakenOutput ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.kraken --ExcludeTaxID 2 --Outdir ./TestRun
 
 */
 
+
+/* ########################
+    DEFINE PARAMETERS 
+############################ */
 
 // General Parameters
 params.ID = "Test"
@@ -23,26 +32,65 @@ params.ExcludeTaxID = "TaxIDs"
 params.MinLength = 1000
 params.MinQuality = 7
 
-workflow {
-    
-    KrakenFilt(params.ID,
-               params.Fastq,
-               params.KrakenReport,
-               params.KrakenOutput,
-               params.ExcludeTaxID)
-    
-    Scrub(params.ID, 
-          KrakenFilt.out, 
-          params.Threads)
 
-    QualFilter( params.ID,
-                Scrub.out,
-                params.Threads,
-                params.MinLength,
-                params.MinQuality)
+/* ########################
+    DEFINE WORKFLOWS 
+############################ */
+
+
+// Define Workflow DataQC
+workflow DataQC {
+
+    // Use take to define input 
+    take: 
+    ID
+    Fastq
+    KrakenReport
+    KrakenOutput
+    ExcludeTaxID
+    Threads
+    MinLength
+    MinQuality
+    
+    main:
+    KrakenFilt(ID,
+               Fastq,
+               KrakenReport,
+               KrakenOutput,
+               ExcludeTaxID)
+    
+
+    Scrub(ID, 
+          KrakenFilt.out, 
+          Threads)
+
+
+    QualFilter(ID,
+               Scrub.out,
+               Threads,
+               MinLength,
+               MinQuality)
     }
 
 
+// DEFAULT WORKFLOW
+// This will be run when the script is executed. So it can be used as standalone.
+workflow {
+
+    DataQC(params.ID, 
+           params.Fastq,
+           params.KrakenReport,
+            params.KrakenOutput,
+            params.ExcludeTaxID,
+            params.Threads,
+            params.MinLength,
+            params.MinQuality)
+}
+
+
+/* ########################
+    DEFINE PROCESSESS 
+############################ */
 
 
 process KrakenFilt {
@@ -51,7 +99,7 @@ process KrakenFilt {
     container '/home/matt_h/Downloads/KRAKENTOOLS.sif'
 
     // Defines where output files will be stored on process completion
-    publishDir "${params.Outdir}/01_DataQC/01_Decontamination"
+    publishDir "${params.Outdir}/DataQC/01_Decontamination"
 
     // Input variables required
     input:

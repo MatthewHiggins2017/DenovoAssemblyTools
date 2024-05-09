@@ -38,7 +38,7 @@ params.PackagePath = "~/DenovoAssemblyTools/"
     DEFINE WORKFLOWS 
 ############################ */
 
-workflow TCSGapCloser {
+workflow GapCloser {
     take:
     ID
     Fastq
@@ -61,7 +61,7 @@ workflow TCSGapCloser {
 
 // Default Workflow
 workflow {
-    TGSGapCloser(params.ID,
+    GapCloser(params.ID,
                 params.Fastq,
                 params.Assembly,
                 params.Threads,
@@ -93,7 +93,7 @@ process TGSGapCloser {
 
     // Output variable which is expected and checked for.
     output:
-    path "${ID}_TGS_GapClosing.scaff_seqs"
+    file "${ID}_TGS_GapClosing.scaff_seqs"
 
     // Run Script
     script:

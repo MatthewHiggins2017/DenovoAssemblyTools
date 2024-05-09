@@ -13,7 +13,7 @@ Run Guided Scaffolding
 ################
 
 
-nextflow ./NF/modules/GuidedScaffolding.nf --ID TestQC --Reference ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/reference.fasta --Assembly ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/assembly.fasta --Outdir ./TestRun --PackagePath /home/matt_h/Downloads
+nextflow ./NF/modules/GuidedScaffolding.nf --ID TestQC --GuideReference ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/reference.fasta --Assembly ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/assembly.fasta --Outdir ./TestRun --PackagePath /home/matt_h/Downloads
 
 */
 
@@ -27,7 +27,7 @@ nextflow ./NF/modules/GuidedScaffolding.nf --ID TestQC --Reference ~/Documents/W
 params.ID = "Test"
 params.Outdir = "./TestRun"
 params.Assembly = "default"
-params.Reference = "default"
+params.GuideReference = "default"
 params.Threads = 2
 params.PackagePath = "~/DenovoAssemblyTools/"
 
@@ -38,17 +38,17 @@ params.PackagePath = "~/DenovoAssemblyTools/"
 ############################ */
 
 
-workflow Scaffolding {
+workflow GuidedScaffolding {
     take:
     ID
-    Reference
+    GuideReference
     Assembly
     Threads
     PackagePath
 
     main:
     RagTag(ID,
-            Reference,
+            GuideReference,
             Assembly,
             Threads,
             PackagePath)
@@ -61,8 +61,8 @@ workflow Scaffolding {
 
 // Default Workflow
 workflow {
-    RagTag(params.ID,
-            params.Reference,
+    GuidedScaffolding(params.ID,
+            params.GuideReference,
             params.Assembly,
             params.Threads,
             params.PackagePath)
@@ -86,7 +86,7 @@ process RagTag {
     // Input variables required
     input:
     val(ID)
-    val(reference)
+    val(GuideReference)
     val(assembly)
     val(threads)
     val(PackagePath)
@@ -94,12 +94,12 @@ process RagTag {
 
     // Output variable which is expected and checked for.
     output:
-    path "${ID}_Guided_Scaffolding/ragtag.scaffold.fasta"
+    file "${ID}_Guided_Scaffolding/ragtag.scaffold.fasta"
 
     // Run Script
     script:
     """
-    ragtag.py scaffold ${reference} ${assembly} -o ${ID}_Guided_Scaffolding --mm2-params '-x asm20 -t ${threads}'
+    ragtag.py scaffold ${GuideReference} ${assembly} -o ${ID}_Guided_Scaffolding --mm2-params '-x asm20 -t ${threads}'
     """
 
 }

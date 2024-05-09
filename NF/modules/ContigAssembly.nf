@@ -53,6 +53,9 @@ workflow ContigAssembly {
          Threads,
          ReadError,
          PackagePath)
+
+    emit:
+    Flye.out
 }
 
 
@@ -83,7 +86,7 @@ process Flye {
 
     // Output variable which is expected and checked for.
     output:
-    path "${ID}_Flye_Assembly/assembly.fasta"
+    file "${ID}_Flye_Assembly/assembly.fasta"
 
     // Run Script
     script:

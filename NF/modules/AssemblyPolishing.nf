@@ -61,7 +61,7 @@ workflow Polish {
 // Defualt Workflow
 workflow {
 
-    Racon(params.ID,
+    Polish(params.ID,
          params.Fastq,
          params.Assembly,
          params.Threads,
@@ -94,7 +94,7 @@ process Racon {
 
     // Output variable which is expected and checked for.
     output:
-    path "${ID}_Racon_Polished.fasta"
+    file "${ID}_Racon_Polished.fasta"
 
     // Run Script
     script:

@@ -129,7 +129,7 @@ process KrakenFilt {
 
     // Output variable which is expected and checked for.
     output:
-    path "${ID}.KrakFilt.fastq"
+    file "${ID}.KrakFilt.fastq"
 
     // Run Script
     script:
@@ -167,7 +167,7 @@ process Scrub {
 
     // Output variable which is expected and checked for.
     output:
-    path "${ID}.Yacrd.fastq"
+    file "${ID}.Yacrd.fastq"
 
     // Run Script
     script:

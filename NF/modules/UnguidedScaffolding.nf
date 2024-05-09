@@ -66,12 +66,12 @@ workflow Scaffolding {
 
 // Default Workflow
 workflow {
-    NtLink(params.ID,
-            params.Fastq,
-            params.Assembly,
-            params.Threads,
-            params.NtLinkRounds,
-            params.PackagePath)
+    Scaffolding(params.ID,
+                params.Fastq,
+                params.Assembly,
+                params.Threads,
+                params.NtLinkRounds,
+                params.PackagePath)
 
 }
 

@@ -13,7 +13,7 @@ Run Assembly Polishing
 ################
 
 
-nextflow ./NF/modules/AssemblyPolishing.nf --ID TestQC --Fastq ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.fastq --Assembly ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/reference.fasta --PackagePath /home/matt_h/Downloads
+nextflow ./NF/modules/AssemblyPolishing.nf --ID TestQC --Fastq ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.fastq --Assembly ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/reference.fasta --PackagePath /home/matt_h/Documents/Work/Github/Research/DenovoAssemblyTools
 
 */
 
@@ -77,7 +77,7 @@ workflow {
 process Racon {
 
     // Define path to container
-    container "${PackagePath}/Containers/Racon.sif"
+    container "${PackagePath}/Containers/RACON.sif"
 
 
     // Defines where output files will be stored on process completion

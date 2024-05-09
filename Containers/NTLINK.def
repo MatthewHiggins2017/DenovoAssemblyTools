@@ -1,0 +1,15 @@
+Bootstrap: docker
+
+From: continuumio/miniconda3
+
+%files
+    NTLINK.yml
+
+%post
+    /opt/conda/bin/conda env create -f NTLINK.yml
+    echo ". /opt/conda/etc/profile.d/conda.sh" >> $SINGULARITY_ENVIRONMENT
+    echo "conda activate NTLINK" >> $SINGULARITY_ENVIRONMENT
+    
+    
+%runscript
+    ntLink --help

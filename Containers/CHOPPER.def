@@ -1,0 +1,16 @@
+Bootstrap: docker
+
+From: continuumio/miniconda3
+
+%files
+    CHOPPER.yml
+
+%post
+    /opt/conda/bin/conda env create -f CHOPPER.yml
+    echo ". /opt/conda/etc/profile.d/conda.sh" >> $SINGULARITY_ENVIRONMENT
+    echo "conda activate CHOPPER" >> $SINGULARITY_ENVIRONMENT
+    
+
+
+%runscript
+    chopper -h

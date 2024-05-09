@@ -12,7 +12,7 @@ Close gaps in asssembly
 # Test Command #
 ################
 
-nextflow ./NF/modules/GapClosing.nf --ID TestQC --Fastq ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.fastq --Assembly ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/reference.fasta --PackagePath /home/matt_h/Downloads
+nextflow ./NF/modules/GapClosing.nf --ID TestQC --Fastq ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.fastq --Assembly ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/reference.fasta --PackagePath /home/matt_h/Documents/Work/Github/Research/DenovoAssemblyTools
 
 
 */
@@ -76,7 +76,7 @@ workflow {
 process TGSGapCloser {
 
     // Define path to container
-    container "${PackagePath}/Containers/TGSGapCloser.sif"
+    container "${PackagePath}/Containers/TGSGAPCLOSER.sif"
 
 
     // Defines where output files will be stored on process completion

@@ -13,7 +13,7 @@ Run Unguided Scaffolding
 ################
 
 
-nextflow ./NF/modules/UnguidedScaffolding.nf --ID TestQC --Fastq ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.fastq --Assembly ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/assembly.fasta --PackagePath /home/matt_h/Downloads
+nextflow ./NF/modules/UnguidedScaffolding.nf --ID TestQC --Fastq ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.fastq --Assembly ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/assembly.fasta --PackagePath /home/matt_h/Documents/Work/Github/Research/DenovoAssemblyTools
 
 
 */
@@ -83,7 +83,7 @@ workflow {
 process NtLink {
 
     // Define path to container
-    container "${PackagePath}/Containers/NtLink.sif"
+    container "${PackagePath}/Containers/NTLINK.sif"
 
 
     // Defines where output files will be stored on process completion

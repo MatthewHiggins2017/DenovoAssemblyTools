@@ -1,0 +1,15 @@
+Bootstrap: docker
+
+From: continuumio/miniconda3
+
+%files
+    RAGTAG.yml
+
+%post
+    /opt/conda/bin/conda env create -f RAGTAG.yml
+    echo ". /opt/conda/etc/profile.d/conda.sh" >> $SINGULARITY_ENVIRONMENT
+    echo "conda activate RAGTAG" >> $SINGULARITY_ENVIRONMENT
+    
+    
+%runscript
+    ragtag.py

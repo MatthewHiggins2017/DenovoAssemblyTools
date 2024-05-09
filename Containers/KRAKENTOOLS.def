@@ -1,0 +1,14 @@
+Bootstrap: docker
+
+From: continuumio/miniconda3
+
+%files
+    KRAKENTOOLS.yml
+
+%post
+    /opt/conda/bin/conda env create -f KRAKENTOOLS.yml
+    echo ". /opt/conda/etc/profile.d/conda.sh" >> $SINGULARITY_ENVIRONMENT
+    echo "conda activate KRAKENTOOLS" >> $SINGULARITY_ENVIRONMENT
+    
+%runscript
+    extract_kraken_reads.py

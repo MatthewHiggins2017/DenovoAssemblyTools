@@ -1,0 +1,15 @@
+Bootstrap: docker
+
+From: continuumio/miniconda3
+
+%files
+    TGSGAPCLOSER.yml
+
+%post
+    /opt/conda/bin/conda env create -f TGSGAPCLOSER.yml
+    echo ". /opt/conda/etc/profile.d/conda.sh" >> $SINGULARITY_ENVIRONMENT
+    echo "conda activate TGSGAPCLOSER" >> $SINGULARITY_ENVIRONMENT
+    
+    
+%runscript
+    tgsgapcloser

@@ -1,0 +1,15 @@
+Bootstrap: docker
+
+From: continuumio/miniconda3
+
+%files
+    RACON.yml
+
+%post
+    /opt/conda/bin/conda env create -f RACON.yml
+    echo ". /opt/conda/etc/profile.d/conda.sh" >> $SINGULARITY_ENVIRONMENT
+    echo "conda activate RACON" >> $SINGULARITY_ENVIRONMENT
+    
+    
+%runscript
+    racon --help

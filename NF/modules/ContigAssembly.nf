@@ -12,7 +12,7 @@ Run FLYE Assembly
 # Test Command #
 ################
 
-nextflow ./NF/modules/ContigAssembly.nf --ID TestQC --Fastq ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.fastq --Threads 3 --ReadError 0.20 --PackagePath /home/matt_h/Downloads
+nextflow ./NF/modules/ContigAssembly.nf --ID TestQC --Fastq ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.fastq --Threads 3 --ReadError 0.20 --PackagePath /home/matt_h/Documents/Work/Github/Research/DenovoAssemblyTools
 
 
 

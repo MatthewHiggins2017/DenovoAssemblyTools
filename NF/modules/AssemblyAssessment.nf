@@ -32,7 +32,7 @@ workflow {
 process Busco {
 
     // Define path to container
-    container '/home/matt_h/Downloads/Busco.sif'
+    container '/home/matt_h/Downloads/BUSCO.sif'
 
     // Defines where output files will be stored on process completion
     publishDir "${params.Outdir}/00_Assesment"

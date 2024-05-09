@@ -12,7 +12,7 @@ Prepare Minion data for De Novo Assembly.
 # Test Command #
 ################
 
-nextflow ./NF/modules/RawDataQC.nf --ID Test --Fastq ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.fastq --Threads 2 --KrakenReport ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.report --KrakenOutput ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.kraken --ExcludeTaxID 2 --Outdir ./TestRun --PackagePath /home/matt_h/Downloads
+nextflow ./NF/modules/RawDataQC.nf --ID Test --Fastq ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.fastq --Threads 2 --KrakenReport ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.report --KrakenOutput ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.kraken --ExcludeTaxID 2 --Outdir ./TestRun --PackagePath /home/matt_h/Documents/Work/Github/Research/DenovoAssemblyTools
 
 */
 

@@ -1,0 +1,46 @@
+name: CHOPPER
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - _libgcc_mutex=0.1
+  - _openmp_mutex=4.5
+  - binutils_impl_linux-64=2.40
+  - bzip2=1.0.8
+  - ca-certificates=2023.7.22
+  - chopper=0.6.0
+  - clang=16.0.6
+  - clang-16=16.0.6
+  - gcc_impl_linux-64=13.2.0
+  - icu=73.2
+  - kernel-headers_linux-64=2.6.32
+  - ld_impl_linux-64=2.40
+  - libclang-cpp16=16.0.6
+  - libexpat=2.5.0
+  - libffi=3.4.2
+  - libgcc-devel_linux-64=13.2.0
+  - libgcc-ng=13.2.0
+  - libgomp=13.2.0
+  - libiconv=1.17
+  - libllvm16=16.0.6
+  - libnsl=2.0.0
+  - libsanitizer=13.2.0
+  - libsqlite=3.43.0
+  - libstdcxx-ng=13.2.0
+  - libuuid=2.38.1
+  - libxml2=2.11.5
+  - libzlib=1.2.13
+  - ncurses=6.4
+  - openssl=3.1.3
+  - pip=23.2.1
+  - python=3.11.5
+  - readline=8.2
+  - setuptools=68.2.2
+  - sysroot_linux-64=2.12
+  - tk=8.6.12
+  - tzdata=2023c
+  - wheel=0.41.2
+  - xz=5.2.6
+  - zlib=1.2.13
+  - zstd=1.5.5

@@ -13,7 +13,7 @@ Run Guided Scaffolding
 ################
 
 
-nextflow ./NF/modules/GuidedScaffolding.nf --ID TestQC --GuideReference ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/reference.fasta --Assembly ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/assembly.fasta --Outdir ./TestRun --PackagePath /home/matt_h/Downloads
+nextflow ./NF/modules/GuidedScaffolding.nf --ID TestQC --GuideReference ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/reference.fasta --Assembly ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/assembly.fasta --Outdir ./TestRun --PackagePath /home/matt_h/Documents/Work/Github/Research/DenovoAssemblyTools
 
 */
 
@@ -77,7 +77,7 @@ workflow {
 process RagTag {
 
     // Define path to container
-    container "${PackagePath}/Containers/RagTag.sif"
+    container "${PackagePath}/Containers/RAGTAG.sif"
 
 
     // Defines where output files will be stored on process completion

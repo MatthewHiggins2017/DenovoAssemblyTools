@@ -11,37 +11,59 @@ Note: In future this call all be wrapped into single setup script.
 git clone https://github.com/MatthewHiggins2017/DenovoAssemblyTools
 cd DenovoAssemblyTools
 
-# 2) Create conda environment
-conda env create -f ./Setup/DeNovoAssembly.yml
+# 2) Run Setup Script
+bash ./Setup/Setup.sh
+
+
+```
+# Useage
+
+```
+
 conda activate DeNovoAssembly
 
-# 3) Install custom package. 
-poetry install 
-
-#4) Run setup script
-
-bash ./Setup/Setup.sh
+DeNovoAssembly --help
 
 ```
 
 
-
-
-
----------------------------------------------------------------------------------
-
-
+---------------------------------------------------------------------
 
 # TO DO 
-.
 
-- How to change the Publish Directory index based on the order in the workflow. 
+Sort out $conda_dir = Figure out what is going on.
 
-Expand assembly assement to include Quast and other custom python script to extract metrics. 
+* Move all containder .def file to necessary directory
 
-- If using Singularity Core the package will not work as setup.py is now discontinued, need to update structure / package so I can use it! To https://build.pypa.io/en/stable/
+* Simplify the setup into single script 
 
-- For NCBI Decontamination tool screening make sure to point towards image file for singularity which is downloaded with the command itself otherwise it will not work.
+* Test main.nf script 
+
+* Update assembly.py python file as control script parsing necessary parameters to run the main.nf script. 
+
+* Write markdown documentation. 
+
+.------------------------------------
+## Other To Do
+
+Setup:
+
+* How to change the Publish Directory index based on the order in the workflow. 
+
+* For NCBI Decontamination tool screening make sure to point towards image file for singularity which is downloaded with the command itself otherwise it will not work.
+
+NextFlow Expansion:
+
+* Expand assembly assement to include Quast and other custom python script to extract metrics. 
+
+* Change nextflow so container path variable is based on user defined parameter and this can be established with python as shown in the assembly.py script.
+
+Python Wrapper:
+
+* Run the main nextflow script
+
+------------------------------------------------------------------------------------------
+
 
 ## Environment Setup 
 
@@ -81,38 +103,5 @@ singularity {
 }
 ```
 
-
-## (1) Data QC
-
-* Scrubbing
-* Decontamination
-* Filtering
-
-## (2) Contig Assembly
-
-* Flye
-
-
-## (3) Decontamination
-
-* NCBI Foreign Contamination Screen
-
-## (4) Unguided Scaffolding 
-
-* NtLinks
-
-## (5) Guided Scaffolding 
-
-* Ragtag 
-
-## (6) Gap Closing
-
-* TGS - GapCloser 
-
-## (7) Polishing 
-
-* Racon
-
-## (8) Tidy 
 
 

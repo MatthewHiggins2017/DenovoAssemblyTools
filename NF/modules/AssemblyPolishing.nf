@@ -13,7 +13,7 @@ Run Assembly Polishing
 ################
 
 
-nextflow ./NF/modules/AssemblyPolishing.nf --ID TestQC --Fastq ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.fastq --Assembly ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/reference.fasta --PackagePath /home/matt_h/Documents/Work/Github/Research/DenovoAssemblyTools
+nextflow ./NF/modules/AssemblyPolishing.nf --ID TestQC --Fastq ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.fastq --Assembly ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/assembly.fasta --PackagePath /home/matt_h/Documents/Work/Github/Research/DenovoAssemblyTools
 
 */
 
@@ -99,7 +99,8 @@ process Racon {
     // Run Script
     script:
     """
-    minimap2 -t ${threads} -x map-ont ${assembly} ${reads} > ${ID}_Racon.paf ; \
+    cp ${assembly} ./Assembly.fa ;
+    minimap2 -t ${threads} -x map-ont ./Assembly.fa ${reads} > ${ID}_Racon.paf ; \
     racon -u --no-trimming ${reads} ${ID}_Racon.paf ${assembly} > ${ID}_Racon_Polished.fasta
 
     """

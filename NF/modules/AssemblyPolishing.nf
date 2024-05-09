@@ -101,7 +101,7 @@ process Racon {
     """
     cp ${assembly} ./Assembly.fa ;
     minimap2 -t ${threads} -x map-ont ./Assembly.fa ${reads} > ${ID}_Racon.paf ; \
-    racon -u --no-trimming ${reads} ${ID}_Racon.paf ${assembly} > ${ID}_Racon_Polished.fasta
+    racon -u --no-trimming ${reads} ${ID}_Racon.paf ./Assembly.fa > ${ID}_Racon_Polished.fasta
 
     """
 }

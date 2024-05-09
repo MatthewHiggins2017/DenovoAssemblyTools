@@ -1,11 +1,37 @@
 #!/usr/bin/env python3
 
+
+'''
+
+DeNovoAssembly Assemble --ID MainTest --Fastq ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.fastq --Threads 2 --KrakenReport ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.report --KrakenOutput ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.kraken --ExcludeTaxID 562 --Outdir ./MainTest --GuideReference ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/reference.fasta --PackagePath /home/matt_h/Documents/Work/Github/Research/DenovoAssemblyTools 
+
+
+'''
+
+
+
 import os
 import sys
 import argparse
+import subprocess
 
 def FullAssembly(args):
-    print('Hello World')
+
+    print('\nRUNNING FULL ASSEMBLY\n')
+
+    NextFlowCommand = f'''nextflow {args.PackagePath}/NF/main.nf \
+        --ID {args.ID} \
+        --Fastq  {args.Fastq} \
+        --Threads {args.Threads} \
+        --KrakenReport {args.KrakenReport} \
+        --KrakenOutput {args.KrakenOutput} \
+        --ExcludeTaxID {args.ExcludeTaxID} \
+        --Outdir {args.Outdir} \
+        --GuideReference {args.GuideReference} \
+        --PackagePath {args.PackagePath} '''
+
+    subprocess.run(NextFlowCommand,shell=True)
+
     return 
 
 
@@ -16,7 +42,7 @@ def AssemblyAssess(args):
 
 
 def main():
-    print("DeNovo Assembly Assessment")
+    print("\nDeNovo Assembly\nMatthew Higgins\n")
 
     # Obtain Package Path
     PackagePath = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))) 

@@ -25,4 +25,3 @@ conda activate DeNovoAssembly
 DeNovoAssembly --help
 
 ```
-

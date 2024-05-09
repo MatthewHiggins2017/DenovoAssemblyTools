@@ -2,10 +2,25 @@
 
 /*
 
-nextflow Scripts/GapClosing.nf --ID TestQC --Fastq ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.fastq --Assembly ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/reference.fasta
+################
+# Description  #
+################
+
+Close gaps in asssembly
+
+################
+# Test Command #
+################
+
+nextflow ./NF/modules/GapClosing.nf --ID TestQC --Fastq ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.fastq --Assembly ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/reference.fasta --PackagePath /home/matt_h/Downloads
 
 
 */
+
+
+/* ########################
+    DEFINE PARAMETERS 
+############################ */
 
 // General Parameters
 params.ID = "Test"
@@ -13,22 +28,56 @@ params.Assembly = "default"
 params.Fastq = "default"
 params.Threads = 2
 params.Outdir = "./TestRun"
+params.PackagePath = "~/DenovoAssemblyTools/"
+
 
 // TGSGapCloser Parameters
 
 
+/* ########################
+    DEFINE WORKFLOWS 
+############################ */
 
+workflow TCSGapCloser {
+    take:
+    ID
+    Fastq
+    Assembly
+    Threads
+    PackagePath
+
+    main:
+    TGSGapCloser(ID,
+                Fastq,
+                Assembly,
+                Threads,
+                PackagePath)
+
+    emit:
+    TGSGapCloser.out
+
+}
+
+
+// Default Workflow
 workflow {
     TGSGapCloser(params.ID,
                 params.Fastq,
                 params.Assembly,
-                params.Threads)
+                params.Threads,
+                params.PackagePath)
 }
+
+
+/* ########################
+    DEFINE PROCESS 
+############################ */
 
 process TGSGapCloser {
 
     // Define path to container
-    container '/home/matt_h/Downloads/TGSGapCloser.sif'
+    container "${PackagePath}/Containers/TGSGapCloser.sif"
+
 
     // Defines where output files will be stored on process completion
     publishDir "${params.Outdir}/06_GapClosing"
@@ -39,6 +88,7 @@ process TGSGapCloser {
     val(fastq)
     val(assembly)
     val(threads)
+    val(PackagePath)
 
 
     // Output variable which is expected and checked for.

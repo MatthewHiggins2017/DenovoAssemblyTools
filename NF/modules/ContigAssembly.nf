@@ -2,31 +2,73 @@
 
 /*
 
-nextflow Scripts/ContigAssembly.nf --ID TestQC --Fastq ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.fastq --Threads 3 --ReadError 0.20
+################
+# Description  #
+################
+
+Run FLYE Assembly
+
+################
+# Test Command #
+################
+
+nextflow ./NF/modules/ContigAssembly.nf --ID TestQC --Fastq ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.fastq --Threads 3 --ReadError 0.20 --PackagePath /home/matt_h/Downloads
+
+
 
 */
+
+
+
+/* ########################
+    DEFINE PARAMETERS 
+############################ */
 
 // General Parameters
 params.ID = "Test"
 params.Fastq = "default"
 params.Threads = 2
 params.Outdir = "./TestRun"
+params.PackagePath = "~/DenovoAssemblyTools/"
 
 // Flye Parameters
 params.ReadError = 0.06
 
+/* ########################
+    DEFINE WORKFLOWS 
+############################ */
 
+workflow ContigAssembly {
+
+    take:
+    ID
+    Fastq
+    Threads
+    ReadError
+    PackagePath
+
+    main:
+    Flye(ID,
+         Fastq,
+         Threads,
+         ReadError,
+         PackagePath)
+}
+
+
+// DEFAULT WORKFLOW
 workflow {
-    Flye(params.ID,
-         params.Fastq,
-         params.Threads,
-         params.ReadError)
+    ContigAssembly(params.ID,
+                   params.Fastq,
+                   params.Threads,
+                   params.ReadError,
+                   params.PackagePath)
 }
 
 process Flye {
 
     // Define path to container
-    container '/home/matt_h/Downloads/FLYE.sif'
+    container "${PackagePath}/Containers/FLYE.sif"
 
     // Defines where output files will be stored on process completion
     publishDir "${params.Outdir}/02_ContigAssemby"
@@ -37,6 +79,7 @@ process Flye {
     val(reads)
     val(threads)
     val(ErrorProb)
+    val(PackagePath)
 
     // Output variable which is expected and checked for.
     output:

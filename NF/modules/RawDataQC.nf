@@ -2,12 +2,17 @@
 
 /*
 
+################
+# Description  #
+################
+
+Prepare Minion data for De Novo Assembly.
 
 ################
 # Test Command #
 ################
 
-nextflow ./NF/modules/RawDataQC.nf --ID Test --Fastq ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.fastq --Threads 2 --KrakenReport ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.report --KrakenOutput ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.kraken --ExcludeTaxID 2 --Outdir ./TestRun
+nextflow ./NF/modules/RawDataQC.nf --ID Test --Fastq ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.fastq --Threads 2 --KrakenReport ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.report --KrakenOutput ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.kraken --ExcludeTaxID 2 --Outdir ./TestRun --PackagePath /home/matt_h/Downloads
 
 */
 
@@ -21,6 +26,7 @@ params.ID = "Test"
 params.Fastq = "default"
 params.Threads = 2
 params.Outdir = "./TestRun"
+params.PackagePath = "~/DenovoAssemblyTools/"
 
 // Kraken Decontamination Parameters
 params.KrakenReport = "default"
@@ -41,7 +47,7 @@ params.MinQuality = 7
 // Define Workflow DataQC
 workflow DataQC {
 
-    // Use take to define input 
+    // Use take: to define workflow inputs 
     take: 
     ID
     Fastq
@@ -51,25 +57,35 @@ workflow DataQC {
     Threads
     MinLength
     MinQuality
+    PackagePath
     
+    // Use main: to define workflow processes.
     main:
     KrakenFilt(ID,
                Fastq,
                KrakenReport,
                KrakenOutput,
-               ExcludeTaxID)
+               ExcludeTaxID,
+               PackagePath)
     
 
     Scrub(ID, 
           KrakenFilt.out, 
-          Threads)
+          Threads,
+          PackagePath)
 
 
     QualFilter(ID,
                Scrub.out,
                Threads,
                MinLength,
-               MinQuality)
+               MinQuality,
+               PackagePath)
+
+    // Define what is the output (emitted) from the workflow
+    emit:
+    QualFilter.out
+    
     }
 
 
@@ -84,7 +100,8 @@ workflow {
             params.ExcludeTaxID,
             params.Threads,
             params.MinLength,
-            params.MinQuality)
+            params.MinQuality,
+            params.PackagePath)
 }
 
 
@@ -95,8 +112,8 @@ workflow {
 
 process KrakenFilt {
 
-    // Define path to container
-    container '/home/matt_h/Downloads/KRAKENTOOLS.sif'
+    // Define path to container 
+    container "${PackagePath}/Containers/KRAKENTOOLS.sif"
 
     // Defines where output files will be stored on process completion
     publishDir "${params.Outdir}/DataQC/01_Decontamination"
@@ -108,6 +125,7 @@ process KrakenFilt {
     val(KrakenReport)
     val(KrakenOutput)
     val(TaxIDs)
+    val(PackagePath)
 
     // Output variable which is expected and checked for.
     output:
@@ -135,7 +153,7 @@ process KrakenFilt {
 process Scrub {
 
     // Defines path to singularity container
-    container '/home/matt_h/Downloads/YACRD.sif'
+    container "${PackagePath}/Containers/YACRD.sif"
 
     // Defines where output files will be stored on process completion
     publishDir "${params.Outdir}/DataQC/02_Scrubbing"
@@ -145,6 +163,7 @@ process Scrub {
     val(ID)
     val(reads)
     val(threads)
+    val(PackagePath)
 
     // Output variable which is expected and checked for.
     output:
@@ -171,7 +190,7 @@ process Scrub {
 
 process QualFilter {
 
-    container '/home/matt_h/Downloads/CHOPPER.sif'
+    container "${PackagePath}/Containers/CHOPPER.sif"
 
     // Defines where output files will be stored on process completion
     publishDir "${params.Outdir}/DataQC/03_Filtered"
@@ -183,10 +202,11 @@ process QualFilter {
     val(Threads)
     val(MinLength)
     val(MinQuality)
+    val(PackagePath)
 
     // Output variable which is expected and checked for.
     output:
-    path "${ID}.QualFilt.fastq"
+    file "${ID}.QualFilt.fastq" 
 
     // Run Script
     script:

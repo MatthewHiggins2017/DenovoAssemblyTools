@@ -2,6 +2,17 @@
 
 /*
 
+
+################
+# Description  #
+################
+
+Remove contamination
+
+################
+# Test Command #
+################
+
 NEED TO TEST THIS! 
 
 Tool:
@@ -11,30 +22,68 @@ https://github.com/ncbi/fcs/wiki/FCS-GX-quickstart
 
 */
 
+
+/* ########################
+    DEFINE PARAMETERS 
+############################ */
+
 // General Parameters
 params.ID = "Test"
 params.Assembly = "default"
 params.Threads = 2
 params.Outdir = "./TestRun"
+params.PackagePath = "~/DenovoAssemblyTools/"
+
 
 // FCS-GX Parameters
 params.SampleTaxID = '1'
 
+/* ########################
+    DEFINE WORKFLOWS 
+############################ */
 
+
+Workflow FCSRun {
+
+    take:
+    ID
+    Assembly
+    Threads
+    SampleTaxID
+    GxDatabase
+    PackagePath
+
+    main:
+    FcsGX(ID,
+          Assembly,
+          Threads,
+          SampleTaxID,
+          GxDatabase,
+          PackagePath)
+
+    emit:
+    FcsGX.emit
+}
+
+
+
+// Defualt Workflow
 Workflow {
 
     FcsGX(params.ID,
           params.Assembly,
           params.Threads,
-          params.SampleTaxID
-          params.GxDatabase)
+          params.SampleTaxID,
+          params.GxDatabase,
+          params.PackagePath)
 }
 
 
 process FcsGX {
 
     // Define path to container
-    container '/home/matt_h/Downloads/FcsGX.sif'
+    container "${PackagePath}/Containers/FcsGX.sif"
+
 
     // Defines where output files will be stored on process completion
     publishDir "${params.Outdir}/03_FCS"
@@ -46,6 +95,7 @@ process FcsGX {
     val(threads)
     val(taxid)
     val(GxDatabase)
+    val(PackagePath)
 
     // Output variable which is expected and checked for.
     output:

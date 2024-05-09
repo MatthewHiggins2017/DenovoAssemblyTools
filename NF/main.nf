@@ -4,7 +4,7 @@
 
 Example Command:
 
-nextflow ./NF/main.nf --ID MainTest --Fastq ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.fastq --Threads 2 --KrakenReport ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.report --KrakenOutput ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.kraken --ExcludeTaxID 2 --Outdir ./MainTest
+nextflow ./NF/main.nf --ID MainTest --Fastq ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.fastq --Threads 2 --KrakenReport ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.report --KrakenOutput ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.kraken --ExcludeTaxID 562 --Outdir ./MainTest
 
 Background:
 
@@ -36,9 +36,12 @@ params.KrakenReport = "default"
 params.KrakenOutput = "default"
 params.ExcludeTaxID = "TaxIDs"
 
-// Filtering Parameters
+// Chopper Filtering Parameters
 params.MinLength = 1000
 params.MinQuality = 7
+
+// Flye Parameters
+params.ReadError = 0.06
 
 
 /* ##################################
@@ -47,10 +50,14 @@ params.MinQuality = 7
 
 
 include { DataQC  } from './modules/RawDataQC.nf'
+include { ContigAssembly  } from './modules/ContigAssembly.nf'
 
 
+
+// Define default workflow
 workflow {
 
+    // Filter Raw Data
     DataQC(params.ID,
            params.Fastq,
            params.KrakenReport,
@@ -59,5 +66,14 @@ workflow {
            params.Threads,
            params.MinLength,
            params.MinQuality)
+
+    // Run Contig Data.
+    // Figure out how to parse the output of DataQC
+    ContigAssembly(params.ID,
+                    DataQC.out,
+                    params.Threads,
+                    params.ReadError)
+
+
 }
 

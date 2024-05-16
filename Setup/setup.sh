@@ -26,12 +26,6 @@ wget -qO- https://get.nextflow.io | bash
 chmod +x nextflow
 mv nextflow $conda_dir/envs/DeNovoAssembly/bin/
 
-## Move .nextflow.config file to root {~/.nextflow.config}
-## Double check this works. 
-mv nextflow.config ~/.nextflow.config
-
-
-## TO DO!!!!!
 
 #############
 # Stage Three

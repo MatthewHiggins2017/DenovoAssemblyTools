@@ -81,7 +81,7 @@ process Racon {
 
 
     // Defines where output files will be stored on process completion
-    publishDir "${params.Outdir}/07_AssemblyPolishing"
+    publishDir "${params.Outdir}/AssemblyPolishing"
 
     // Input variables required
     input:

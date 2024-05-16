@@ -81,7 +81,7 @@ process RagTag {
 
 
     // Defines where output files will be stored on process completion
-    publishDir "${params.Outdir}/05_GuidedScaffolding"
+    publishDir "${params.Outdir}/GuidedScaffolding"
 
     // Input variables required
     input:

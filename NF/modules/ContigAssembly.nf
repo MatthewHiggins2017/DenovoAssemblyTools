@@ -74,7 +74,7 @@ process Flye {
     container "${PackagePath}/Containers/FLYE.sif"
 
     // Defines where output files will be stored on process completion
-    publishDir "${params.Outdir}/02_ContigAssemby"
+    publishDir "${params.Outdir}/ContigAssemby"
 
     // Input variables required
     input:

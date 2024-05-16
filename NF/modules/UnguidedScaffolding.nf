@@ -87,7 +87,7 @@ process NtLink {
 
 
     // Defines where output files will be stored on process completion
-    publishDir "${params.Outdir}/04_UnguidedScaffolding"
+    publishDir "${params.Outdir}/UnguidedScaffolding"
 
     // Input variables required
     input:

@@ -2,7 +2,7 @@
 
 /*
 
-nextflow ./NF/modules/AssemblyAssessment.nf --ID TestQC --Assembly ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Busco_Test.fa --Threads 2 --Outdir ./TestRun --PackagePath /home/matt_h/Documents/Work/Github/Research/DenovoAssemblyTools
+nextflow ./NF/modules/AssemblyAssessment.nf --ID TestQC --Assembly ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData_Local_Backup/Busco_Test.fa --Threads 2 --Outdir ./TestRun --PackagePath /home/matt_h/Documents/Work/Github/Research/DenovoAssemblyTools
 
 */
 
@@ -17,6 +17,7 @@ params.Fastq = "default"
 params.Threads = 2
 params.Outdir = "./TestRun"
 params.PackagePath = "~/DenovoAssemblyTools/"
+params.Stage = '00'
 
 
 // BUSCO Parameters
@@ -33,13 +34,15 @@ workflow AssemblyAssessment {
     Threads
     BuscoDatabase
     PackagePath
+    Stage
 
     main:
     Busco(ID,
           Assembly,
           Threads,
           BuscoDatabase,
-          PackagePath)
+          PackagePath,
+          Stage)
 
     emit:
     Busco.out
@@ -53,7 +56,8 @@ workflow {
             params.Assembly,
             params.Threads,
             params.BuscoDatabase,
-            params.PackagePath)
+            params.PackagePath,
+            params.Stage)
 }
 
 /* ########################
@@ -67,7 +71,7 @@ process Busco {
     container "${PackagePath}/Containers/BUSCO.sif"
 
     // Defines where output files will be stored on process completion
-    publishDir "${params.Outdir}/00_Assesment"
+    publishDir "${params.Outdir}/Assesment/${Stage}"
 
     // Input variables required
     input:
@@ -76,6 +80,7 @@ process Busco {
     val(threads)
     val(buscodatabase)
     val(PackagePath)
+    val(stage)
 
 
     // Output variable which is expected and checked for.

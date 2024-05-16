@@ -116,7 +116,7 @@ process KrakenFilt {
     container "${PackagePath}/Containers/KRAKENTOOLS.sif"
 
     // Defines where output files will be stored on process completion
-    publishDir "${params.Outdir}/DataQC/01_Decontamination"
+    publishDir "${params.Outdir}/DataQC/Decontamination"
 
     // Input variables required
     input:

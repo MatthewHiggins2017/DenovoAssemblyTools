@@ -86,7 +86,7 @@ process FcsGX {
 
 
     // Defines where output files will be stored on process completion
-    publishDir "${params.Outdir}/03_FCS"
+    publishDir "${params.Outdir}/FCS"
 
     // Input variables required
     input:

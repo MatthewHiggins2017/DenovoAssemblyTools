@@ -80,7 +80,7 @@ process TGSGapCloser {
 
 
     // Defines where output files will be stored on process completion
-    publishDir "${params.Outdir}/06_GapClosing"
+    publishDir "${params.Outdir}/GapClosing"
 
     // Input variables required
     input:

@@ -58,11 +58,11 @@ include { GapCloser } from "${params.PackagePath}/NF/modules/GapClosing.nf"
 include { Polish } from  "${params.PackagePath}/NF/modules/AssemblyPolishing.nf"
 
 // Find cleaner way to do this!
-include {AssemblyAssessment as AAOne} from "${params.PackagePath}/NF/modules/AssemblyAssessment.nf"
-include {AssemblyAssessment as AATwo} from "${params.PackagePath}/NF/modules/AssemblyAssessment.nf"
-include {AssemblyAssessment as AAThree} from "${params.PackagePath}/NF/modules/AssemblyAssessment.nf"
-include {AssemblyAssessment as AAFour} from "${params.PackagePath}/NF/modules/AssemblyAssessment.nf"
-include {AssemblyAssessment as AAFive} from "${params.PackagePath}/NF/modules/AssemblyAssessment.nf"
+include {AssemblyAssessment as AssemblyAssessOne} from "${params.PackagePath}/NF/modules/AssemblyAssessment.nf"
+include {AssemblyAssessment as AssemblyAssessTwo} from "${params.PackagePath}/NF/modules/AssemblyAssessment.nf"
+include {AssemblyAssessment as AssemblyAssessThree} from "${params.PackagePath}/NF/modules/AssemblyAssessment.nf"
+include {AssemblyAssessment as AssemblyAssessFour} from "${params.PackagePath}/NF/modules/AssemblyAssessment.nf"
+include {AssemblyAssessment as AssemblyAssessFive} from "${params.PackagePath}/NF/modules/AssemblyAssessment.nf"
 
 
 
@@ -88,7 +88,7 @@ workflow {
                     params.PackagePath)
 
     // Assessment
-    AAOne(params.ID,
+    AssemblyAssessOne(params.ID,
             ContigAssembly.out,
             params.Threads,
             params.BuscoDatabase,
@@ -106,7 +106,7 @@ workflow {
                 params.PackagePath)
 
 
-    AATwo(params.ID,
+    AssemblyAssessTwo(params.ID,
             Scaffolding.out,
             params.Threads,
             params.BuscoDatabase,
@@ -121,7 +121,7 @@ workflow {
                     params.Threads,
                     params.PackagePath)
 
-    AAThree(params.ID,
+    AssemblyAssessThree(params.ID,
             GuidedScaffolding.out,
             params.Threads,
             params.BuscoDatabase,
@@ -137,7 +137,7 @@ workflow {
                 params.Threads,
                 params.PackagePath)
 
-    AAFour(params.ID,
+    AssemblyAssessFour(params.ID,
             GuidedScaffolding.out,
             params.Threads,
             params.BuscoDatabase,
@@ -153,7 +153,7 @@ workflow {
          params.PackagePath)
 
     
-    AAFive(params.ID,
+    AssemblyAssessFive(params.ID,
             GuidedScaffolding.out,
             params.Threads,
             params.BuscoDatabase,

@@ -3,10 +3,18 @@
 # Introduction 
 
 
+The following Python package utilizes Nextflow and Singularity to furnish a comprehensive De Novo Assembly Toolkit. Its modular structure enables the execution of each stage of the De Novo assembly pipeline individually or collectively, facilitating the transition from raw ONT data to a polished assembly. Presently, its configuration is tailored specifically for ONT data processing.
+
+
+# Dependencies
+
+* [python](https://www.python.org/downloads/release/python-3100/) >= 3.10
+* [mamba](https://github.com/mamba-org/mamba) >= 1.5.8
+
 
 # Installation
 
-Following the instructions below will install the De Novo Assembly package and all dependencies. 
+Following the instructions below will install the De Novo Assembly package and all dependencies, including Singularity and NextFlow. 
 
 ```
 
@@ -17,6 +25,8 @@ cd DenovoAssemblyTools
 # 2) Run Setup Script
 bash ./Setup/Setup.sh
 
+
+-----------------------------------------------------------------------------------------------
 
 ```
 # Useage
@@ -70,12 +80,13 @@ DeNovoAssembly Assemble --ID Test \
 --ExcludeTaxID 562 \
 --Outdir /Full/Path/To/Package/DenovoAssemblyTools/Examples/MainTest \
 --GuideReference /Full/Path/To/Package/DenovoAssemblyTools/Examples/RawData/reference.fasta \
-
+--BuscoDatabase eukaryota_odb10
 
 
 ```
 
 
+-------------------------------------------------------------
 
 # Parameters
 
@@ -95,3 +106,33 @@ DeNovoAssembly Assemble --ID Test \
 | `--NtLinkRounds` | Define rounds of unguided scaffolding. | int | 3 | No |
 | `--GuideReference` | Path to fasta file which should be used as guided. This will be used for guided scaffolding with RagTag and assembly assessment via Qaust. | str | False | No |
 | `--Assembly` | Path to preexisting assembly. | str | False | No |
+
+
+-------------------------------------------------------------
+
+# Tools Utilised
+
+Below is a list of tools incoporated into the De Novo Assembly package.
+
+**Data QC**
+
+* [Kraken2](https://ccb.jhu.edu/software/kraken2/)
+* [KrakenTools]()
+* [Minimap2]()
+* [Yacrd]()
+* [Chopper]()
+
+**Contig Assembly**
+
+* [FLYE]()
+* [NCBI Decontamination Screening]()
+
+**Scaffolding**
+
+* [NtLinks]()
+* [RagTag]()
+
+**Assembly Polishing**
+
+* [TgsGapCloser]()
+* [Racon]()

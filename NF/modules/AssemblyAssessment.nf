@@ -71,7 +71,7 @@ process Busco {
     container "${PackagePath}/Containers/BUSCO.sif"
 
     // Defines where output files will be stored on process completion
-    publishDir "${params.Outdir}/Assesment/${Stage}"
+    publishDir "${params.Outdir}/Assessment/${stage}"
 
     // Input variables required
     input:

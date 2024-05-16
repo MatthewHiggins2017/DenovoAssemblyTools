@@ -3,7 +3,7 @@
 
 '''
 
-DeNovoAssembly Assemble --ID MainTest --Fastq ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.fastq --Threads 2 --KrakenReport ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.report --KrakenOutput ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.kraken --ExcludeTaxID 562 --Outdir ./MainTest --GuideReference ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/reference.fasta --Assembly ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Assembly.fasta
+DeNovoAssembly Assemble --ID MainTest --Fastq ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.fastq.gz --Threads 2 --KrakenReport ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.report --KrakenOutput ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Test.kraken --ExcludeTaxID 562 --Outdir ./MainTest --GuideReference ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/reference.fasta --Assembly ~/Documents/Work/Github/Research/DenovoAssemblyTools/Examples/RawData/Assembly.fasta
 
 '''
 
@@ -188,85 +188,76 @@ def AssemblyAssess(args):
 
 
 # Share Arguments
-def add_shared_arguments(parser,
-                        PackagePath):
-    
+def add_shared_arguments(parser, PackagePath):
     parser.add_argument('--PackagePath',
-                                help='Path to the package directory so all nextflow scripts and singularity containers are accessible.',
-                                type=str,
-                                default=PackagePath)
-
+                        help='Path to the package directory so all nextflow scripts and singularity containers are accessible.',
+                        type=str,
+                        default=PackagePath)
 
     parser.add_argument('--ID',
-                                help='',
-                                type=str,
-                                required=True)
-    
-    
+                        help='Define the ID of your given assembly run. This will be used to name files',
+                        type=str,
+                        required=True)
+
     parser.add_argument('--Outdir',
-                                    help='',
-                                    type=str,
-                                    required=True)
+                        help='Define the output path',
+                        type=str,
+                        required=True)
 
     parser.add_argument('--Fastq',
-                                help='',
-                                type=str,
-                                default=False)
+                        help='Path to ONT input data.',
+                        type=str,
+                        default=False)
 
     parser.add_argument('--Threads',
-                                    help='',
-                                    type=int,
-                                    default=2)
-    
+                        help='Define the number of available threads',
+                        type=int,
+                        default=2)
+
     parser.add_argument('--KrakenReport',
-                                help='',
-                                type=str,
-                                default=False)
-    
+                        help='Path to the Kraken Report associated with ONT input data',
+                        type=str,
+                        default=False)
+
     parser.add_argument('--KrakenOutput',
-                                help='',
-                                type=str,
-                                default=False)
+                        help='Path to the Kraken Output associated with ONT input data',
+                        type=str,
+                        default=False)
 
     parser.add_argument('--ExcludeTaxID',
-                                help='',
-                                type=str,
-                                default=False)
-    
+                        help='Define the TaxonomicIDs which should be used to filter the raw ONT data. Any reads classified according to these IDs will be removed. Use https://www.ncbi.nlm.nih.gov/taxonomy to identify TaxIDs of interest',
+                        type=str,
+                        default=False)
 
     parser.add_argument('--MinLength',
-                                help='',
-                                default=1000,
-                                type=int)
-    
+                        help='ONT input data minimum length.',
+                        default=1000,
+                        type=int)
 
     parser.add_argument('--MinQuality',
-                                help='',
-                                default=7,
-                                type=int)
-    
+                        help='ONT input data minimum quality.',
+                        default=7,
+                        type=int)
 
     parser.add_argument('--ReadError',
-                                help='',
-                                default=0.06,
-                                type=float)
-    
-    
-    parser.add_argument('--NtLinkRounds',
-                                help='',
-                                default=0.06,
-                                type=int)
-    
-    parser.add_argument('--GuideReference',
-                                help='',
-                                type=str,
-                                default=False)
-    
-    parser.add_argument('--Assembly',
-                                help='',
-                                type=str,
-                                default=False)
+                        help='ONT Read Error Probability. Note this should match the Min Quality parameter. E.g. If Q12 = ~0.06 Error Rate',
+                        default=0.06,
+                        type=float)
 
+    parser.add_argument('--NtLinkRounds',
+                        help='Define rounds of unguided scaffolding',
+                        default=3,
+                        type=int)
+
+    parser.add_argument('--GuideReference',
+                        help='Path to fasta file which should be used as guided. This will be used for guided scaffolding with RagTag and assembly assessment via Qaust.',
+                        type=str,
+                        default=False)
+
+    parser.add_argument('--Assembly',
+                        help='Path to preexisting assembly',
+                        type=str,
+                        default=False)
 
 
 def main():

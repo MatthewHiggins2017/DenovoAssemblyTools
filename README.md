@@ -3,7 +3,7 @@
 # Introduction 
 
 
-The following Python package utilizes Nextflow and Singularity to furnish a comprehensive De Novo Assembly Toolkit. Its modular structure enables the execution of each stage of the De Novo assembly pipeline individually or collectively, facilitating the transition from raw ONT data to a polished assembly. Presently, its configuration is tailored specifically for ONT data processing.
+The following Python package utilizes Nextflow and Singularity to furnish a comprehensive De Novo Assembly Toolkit. Its modular structure enables the execution of each stage of the De Novo assembly pipeline individually or collectively, facilitating the transition from raw ONT data to a polished assembly. Presently, the package can only use ONT data.
 
 
 # Dependencies
@@ -18,17 +18,17 @@ Following the instructions below will install the De Novo Assembly package and a
 
 ```
 
-# 1) Clone package repo 
+# 1) Clone Repo 
 git clone https://github.com/MatthewHiggins2017/DenovoAssemblyTools
 cd DenovoAssemblyTools
 
 # 2) Run Setup Script
 bash ./Setup/Setup.sh
 
-
------------------------------------------------------------------------------------------------
-
 ```
+
+-----------------------------------------------------------------------------------------------------------------
+
 # Useage
 
 To use the DeNovo Assembly ToolKit package you always need to activate the conda environment as shown below:
@@ -41,50 +41,88 @@ DeNovoAssembly --help
 
 ```
 
-The following commands are available for use:
-
-```
-# Full Assembly Pipeline (Raw Data -> Polished Assembly)
-DeNovoAssembly Assemble <parameters>
-
-# Assembly Assessment Module
-DeNovoAssembly Assess <parameters>
-
-# DataQC Module
-DeNovoAssembly DataQC <parameters>
-
-# Contig Assembly Module
-DeNovoAssembly ContigAssembly <parameters>
-
-# Unguided Scaffolding Module
-DeNovoAssembly UnguidedScaffolding  <parameters>
-
-# Guided Scaffolding Module
-DeNovoAssembly GuidedScaffolding <parameters>
-
-# Assembly Polishing Module
-DeNovoAssembly AssemblyPolishing <parameters>
-
+Please see below the following commands available for use. Note that the current version of DeNovoAssemblyToolKit requires full input file paths to be provided so please update this accordingly (e.g. /Full/Path/To/Package/)
 
 ```
 
-Please see below a test command to run the full pipeline using test data provided. Note be sure to change the file paths accordingly.
+##########################################################
+# Full Assembly Pipeline (Raw Data -> Polished Assembly) #
+##########################################################
 
-```
 
 DeNovoAssembly Assemble --ID Test \
- --Fastq /Full/Path/To/Package/DenovoAssemblyTools/Examples/RawData/Test.fastq.gz \
+--Fastq /Full/Path/To/Package/DenovoAssemblyTools/Examples/RawData/Test.fastq.gz \
+--Threads 2 \
+--Outdir /Full/Path/To/Package/DenovoAssemblyTools/Examples/MainTest \
+--KrakenReport /Full/Path/To/Package/DenovoAssemblyTools/Examples/RawData/Test.report \
+--KrakenOutput /Full/Path/To/Package/DenovoAssemblyTools/Examples/RawData/Test.kraken \
+--ExcludeTaxID 562 \
+--MinLength` 1000 \
+--MinQuality 12 \
+--ReadError` 0.06 \
+--NtLinkRounds 3 \
+--GuideReference /Full/Path/To/Package/DenovoAssemblyTools/Examples/RawData/reference.fasta \
+--BuscoDatabase eukaryota_odb10
+
+##############################
+# Assembly Assessment Module #
+##############################
+
+DeNovoAssembly Assess --ID TestAssembly \
+--Threads 2 \
+--Assembly /Full/Path/To/Package/DenovoAssemblyTools/Examples/RawData/Assembly.fasta \
+--Outdir /Full/Path/To/Package/DenovoAssemblyTools/Examples/AssessmentTest \
+--GuideReference /Full/Path/To/Package/DenovoAssemblyTools/Examples/RawData/reference.fasta \
+--BuscoDatabase eukaryota_odb10
+
+#################
+# DataQC Module #
+#################
+
+DeNovoAssembly DataQC --ID Test \
+--Fastq /Full/Path/To/Package/DenovoAssemblyTools/Examples/RawData/Test.fastq.gz \
+--Outdir /Full/Path/To/Package/DenovoAssemblyTools/Examples/DataQCTest \
 --Threads 2 \
 --KrakenReport /Full/Path/To/Package/DenovoAssemblyTools/Examples/RawData/Test.report \
 --KrakenOutput /Full/Path/To/Package/DenovoAssemblyTools/Examples/RawData/Test.kraken \
 --ExcludeTaxID 562 \
---Outdir /Full/Path/To/Package/DenovoAssemblyTools/Examples/MainTest \
---GuideReference /Full/Path/To/Package/DenovoAssemblyTools/Examples/RawData/reference.fasta \
---BuscoDatabase eukaryota_odb10
+`--MinLength` 1000 \
+`--MinQuality` 7
+
+###########################
+# Contig Assembly Module  #
+###########################
+
+DeNovoAssembly ContigAssembly --ID Test \
+--Fastq /Full/Path/To/Package/DenovoAssemblyTools/Examples/RawData/Test.fastq.gz \
+--Outdir /Full/Path/To/Package/DenovoAssemblyTools/Examples/ContigTest \
+--Threads 2 \
+--ReadError` 0.06 \
+
+
+###############################
+# Unguided Scaffolding Module #
+###############################
+
+DeNovoAssembly UnguidedScaffolding --ID Test \
+--Assembly /Full/Path/To/Package/DenovoAssemblyTools/Examples/RawData/Assembly.fasta \
+--Outdir /Full/Path/To/Package/DenovoAssemblyTools/Examples/UnguidedScaffoldingTest \
+--Threads 2 \
+--NtLinkRounds 3 
+
+
+#############################
+# Guided Scaffolding Module #
+#############################
+
+DeNovoAssembly GuidedScaffolding --ID Test \
+--Assembly /Full/Path/To/Package/DenovoAssemblyTools/Examples/RawData/Assembly.fasta \
+--Outdir /Full/Path/To/Package/DenovoAssemblyTools/Examples/UnguidedScaffoldingTest \
+--Threads 2 \
+--GuideReference /Full/Path/To/Package/DenovoAssemblyTools/Examples/RawData/reference.fasta
 
 
 ```
-
 
 -------------------------------------------------------------
 
